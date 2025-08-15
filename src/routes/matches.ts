@@ -1,4 +1,3 @@
-// src/routes/matches.ts
 import { Router } from 'express';
 import pool from '../config/database';
 
@@ -37,30 +36,30 @@ router.get('/', async (req, res) => {
   try {
     const { status, date, team_id, competition_id } = req.query;
     
-    let whereConditions = [];
+    let whereConditions: string[] = []; // ✅ Explicitly type as string[]
     let queryParams: any[] = [];
     let paramIndex = 1;
     
     if (status) {
-      whereConditions.push(`m.status = ${paramIndex}`);
+      whereConditions.push(`m.status = $${paramIndex}`); // ✅ Fixed: Use $${paramIndex}
       queryParams.push(status);
       paramIndex++;
     }
     
     if (date) {
-      whereConditions.push(`DATE(m.match_date) = ${paramIndex}`);
+      whereConditions.push(`DATE(m.match_date) = $${paramIndex}`); // ✅ Fixed
       queryParams.push(date);
       paramIndex++;
     }
     
     if (team_id) {
-      whereConditions.push(`(m.home_team_id = ${paramIndex} OR m.away_team_id = ${paramIndex})`);
-      queryParams.push(team_id);
-      paramIndex++;
+      whereConditions.push(`(m.home_team_id = $${paramIndex} OR m.away_team_id = $${paramIndex + 1})`); // ✅ Fixed
+      queryParams.push(team_id, team_id); // Push twice for both conditions
+      paramIndex += 2; // Increment by 2 since we used 2 parameters
     }
     
     if (competition_id) {
-      whereConditions.push(`m.competition_id = ${paramIndex}`);
+      whereConditions.push(`m.competition_id = $${paramIndex}`); // ✅ Fixed
       queryParams.push(competition_id);
       paramIndex++;
     }

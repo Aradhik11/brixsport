@@ -1,4 +1,3 @@
-// src/controllers/competitionController.ts
 import { Request, Response } from 'express';
 import pool from '../config/database';
 
@@ -10,18 +9,18 @@ export class CompetitionController {
     try {
       const { type, status } = req.query;
       
-      let whereConditions = [];
+      let whereConditions: string[] = []; // ✅ Explicitly type as string[]
       let queryParams: any[] = [];
       let paramIndex = 1;
 
       if (type) {
-        whereConditions.push(`type = $${paramIndex}`);
+        whereConditions.push(`type = $${paramIndex}`); // ✅ This is already correct
         queryParams.push(type);
         paramIndex++;
       }
 
       if (status) {
-        whereConditions.push(`status = $${paramIndex}`);
+        whereConditions.push(`status = $${paramIndex}`); // ✅ This is already correct
         queryParams.push(status);
         paramIndex++;
       }
