@@ -42,6 +42,19 @@ app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Brixsport Football API',
+    status: 'running',
+    version: '1.0.0',
+    endpoints: {
+      matches: '/api/matches',
+      competitions: '/api/competitions',
+      docs: '/api-docs'
+    }
+  });
+});
+
 // Swagger Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
   customCss: '.swagger-ui .topbar { display: none }',
