@@ -34,8 +34,15 @@ const socketService = new SocketService(server);
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3001",
-  credentials: true
+  origin: [
+    'http://localhost:3000',    // React dev server
+    'http://localhost:3001',    // Alternative dev port
+    'https://yourfrontend.com', // Production frontend
+    'https://yourapp.onrender.com' // Render frontend
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(compression());
 app.use(morgan('combined'));
