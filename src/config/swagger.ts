@@ -12,7 +12,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://brixsport.onrender.com/api-docs',
+        url: 'https://brixsport.onrender.com',
         description: 'Production server',
       },
     ],
