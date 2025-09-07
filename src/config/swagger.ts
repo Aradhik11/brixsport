@@ -12,8 +12,8 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000/api',
-        description: 'Development server',
+        url: 'https://brixsport.onrender.com/api-docs',
+        description: 'Production server',
       },
     ],
     components: {

@@ -26,7 +26,7 @@ import createLiveRoutes from './routes/live';
 const app = express();
 const server = createServer(app);
 const PORT = process.env.PORT || 3000;
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const NODE_ENV = 'development';
 
 // Initialize Socket.IO
 const socketService = new SocketService(server);
@@ -34,12 +34,7 @@ const socketService = new SocketService(server);
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: [
-    'http://localhost:3000',    // React dev server
-    'http://localhost:3001',    // Alternative dev port
-    'https://yourfrontend.com', // Production frontend
-    'https://yourapp.onrender.com' // Render frontend
-  ],
+  origin: true, 
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
